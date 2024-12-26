@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
-import { setLoggedIn } from '@/store/authSlice';
+import { setLoading, setLoggedIn } from '@/store/authSlice';
 
 const navLinks = [
   {
@@ -55,15 +55,18 @@ export default function Header() {
   // Function to handle logout
   const handleLogout = async () => {
     try {
+      // promise to delay of 5s
+      dispatch(setLoading(true));
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       // Send a GET request to the logout route
       const response = await fetch('/api/logout', {
         method: 'GET',
       });
 
       if (response.ok) {
-        dispatch(setLoggedIn(false));
         router.push('/');
-        router.refresh();
+        dispatch(setLoading(false));
+        dispatch(setLoggedIn(false));
       } else {
         console.error('Logout failed');
       }
@@ -104,59 +107,11 @@ export default function Header() {
             <button
               onClick={handleLogout}
               disabled={loading}
-              className="text-zinc-400"
+              className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 disabled:bg-gray-400"
             >
               {loading ? 'Logging out...' : 'Logout'}
             </button>
           </li>
-          {/* {!isLoggedIn ? (
-            <> */}
-          {/* <li>
-                <Link
-                  className={`${
-                    pathname === '/login' ? 'text-zinc-900' : 'text-zinc-400'
-                  }`}
-                  href="/login"
-                >
-                  Login
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className={`${
-                    pathname === '/register' ? 'text-zinc-900' : 'text-zinc-400'
-                  }`}
-                  href="/register"
-                >
-                  Register
-                </Link>
-              </li> */}
-          {/* </>
-          ) : (
-            <>
-              <li>
-                <Link
-                  className={`${
-                    pathname === '/create-post'
-                      ? 'text-zinc-900'
-                      : 'text-zinc-400'
-                  }`}
-                  href="/create-post"
-                >
-                  Create Post
-                </Link>
-              </li>
-              <li>
-                <button
-                  onClick={handleLogout}
-                  disabled={loading}
-                  className="text-zinc-400"
-                >
-                  {loading ? 'Logging out...' : 'Logout'}
-                </button>
-              </li>
-            </>
-          )} */}
         </ul>
       </nav>
     </header>

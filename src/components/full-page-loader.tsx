@@ -18,7 +18,7 @@ export default function NavigationLoader() {
     if (!mounted) return;
 
     setIsNavigating(true);
-    const timeout = setTimeout(() => setIsNavigating(false), 500);
+    const timeout = setTimeout(() => setIsNavigating(false), 200);
     return () => clearTimeout(timeout);
   }, [pathname, searchParams, mounted]);
 
