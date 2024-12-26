@@ -55,19 +55,6 @@ export async function POST(req: Request) {
     );
 
     return response;
-
-    // // Set token in cookies (HTTP only, Secure)
-    // cookies().set('token', token, {
-    //   httpOnly: true, // Prevent client-side access
-    //   secure: false, // Use Secure in production
-    //   sameSite: 'strict', // CSRF protection
-    //   path: '/', // Root path
-    //   maxAge: 60 * 60, // 1 hour
-    // });
-
-    // return new Response(JSON.stringify({ message: 'Login successful' }), {
-    //   status: 200,
-    // });
   } catch (error) {
     console.error('Error during login:', error);
     return new Response(JSON.stringify({ message: 'Internal server error' }), {

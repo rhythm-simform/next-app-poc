@@ -17,7 +17,7 @@ export async function createPost(prevState: any, formData: FormData) {
     });
 
     // revalidate
-    // revalidatePath('/create-post');
+    revalidatePath('/dashboard/posts');
 
     return {
       ...prevState,

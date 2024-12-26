@@ -1,12 +1,16 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
 import Container from '@/components/container';
 import { Suspense } from 'react';
 import ReduxProvider from '@/providers/ReduxProvider';
 import './../globals.css';
 import Loading from './loading';
+import dynamic from 'next/dynamic';
 
-const inter = Inter({ subsets: ['latin'] });
+// Dynamically import NavigationLoader with ssr disabled
+const NavigationLoader = dynamic(
+  () => import('@/components/full-page-loader'),
+  { ssr: false, loading: () => null }
+);
 
 export default function AuthLayout({
   children,
@@ -14,16 +18,13 @@ export default function AuthLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${inter.className} bg-zinc-100 text-zinc-900 min-h-screen`}
-      >
-        <ReduxProvider>
-          <Container>
-            <Suspense fallback={<Loading />}>{children}</Suspense>
-          </Container>
-        </ReduxProvider>
-      </body>
-    </html>
+    <>
+      <ReduxProvider>
+        <NavigationLoader />
+        <Container>
+          <Suspense fallback={<Loading />}>{children}</Suspense>
+        </Container>
+      </ReduxProvider>
+    </>
   );
 }

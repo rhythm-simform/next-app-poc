@@ -17,6 +17,10 @@ const navLinks = [
     label: 'Posts',
   },
   {
+    href: '/dashboard/create-post',
+    label: 'Create Post',
+  },
+  {
     href: '/dashboard/csr',
     label: 'CSR',
   },
@@ -32,6 +36,10 @@ const navLinks = [
     href: '/dashboard/ssg',
     label: 'SSG',
   },
+  {
+    href: '/dashboard/lazy-load',
+    label: 'Lazy Loading',
+  },
 ];
 
 export default function Header() {
@@ -40,7 +48,9 @@ export default function Header() {
 
   const dispatch = useDispatch();
 
-  const { isLoggedIn, loading } = useSelector((state: RootState) => state.auth);
+  const { isLoggedIn, email, loading } = useSelector(
+    (state: RootState) => state.auth
+  );
 
   // Function to handle logout
   const handleLogout = async () => {
@@ -90,6 +100,7 @@ export default function Header() {
             </li>
           ))}
           <li>
+            <p>{email}</p>
             <button
               onClick={handleLogout}
               disabled={loading}

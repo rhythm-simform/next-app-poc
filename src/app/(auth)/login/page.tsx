@@ -4,7 +4,12 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
-import { setError, setLoading, setLoggedIn } from '@/store/authSlice';
+import {
+  setAuthEmail,
+  setError,
+  setLoading,
+  setLoggedIn,
+} from '@/store/authSlice';
 import Link from 'next/link';
 
 export default function LoginPage() {
@@ -12,8 +17,6 @@ export default function LoginPage() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  // const [loading, setLoading] = useState(false);
-  // const [error, setError] = useState('');
 
   const dispatch = useDispatch();
   const { loading, error } = useSelector((state: RootState) => state.auth);
@@ -35,10 +38,9 @@ export default function LoginPage() {
         throw new Error(data.message || 'Login failed');
       }
 
-      // dispatch(setLoggedIn(true));
       // Redirect to protected page on successful login
       router.push('/dashboard/create-post');
-      router.refresh();
+      dispatch(setAuthEmail(email));
       dispatch(setLoggedIn(true));
     } catch (err: any) {
       dispatch(setError(err.message));

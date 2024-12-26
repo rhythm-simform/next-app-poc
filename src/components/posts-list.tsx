@@ -2,7 +2,6 @@ import prisma from '@/lib/db';
 import Link from 'next/link';
 
 export default async function PostsList() {
-  await new Promise((resolve) => setTimeout(resolve, 2000));
   const posts = await prisma.post.findMany();
 
   return (
