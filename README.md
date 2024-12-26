@@ -26,7 +26,7 @@ This project is a Next.js application using Prisma as the ORM and SQLite as the 
 Ensure you have the following installed on your system:
 
 - Node.js (>= 18.x)
-- npm or Yarn
+- npm
 - SQLite (pre-installed with most operating systems)
 
 ---
@@ -44,12 +44,6 @@ Ensure you have the following installed on your system:
 
    ```bash
    npm install
-   ```
-
-   Or with Yarn:
-
-   ```bash
-   yarn install
    ```
 
 ---
@@ -78,12 +72,6 @@ To run the development server:
 
 ```bash
 npm run dev
-```
-
-Or with Yarn:
-
-```bash
-yarn dev
 ```
 
 Visit [http://localhost:3000](http://localhost:3000) in your browser to see the application.
@@ -159,22 +147,10 @@ model User {
    npm run build
    ```
 
-   Or with Yarn:
-
-   ```bash
-   yarn build
-   ```
-
 2. **Start the app**:
 
    ```bash
    npm start
-   ```
-
-   Or with Yarn:
-
-   ```bash
-   yarn start
    ```
 
 ---
@@ -188,7 +164,7 @@ NODE_ENV="development"
 
 NEXT_PUBLIC_APP_NAME="Blog App"
 
-SENTRY_AUTH_TOKEN=
+SENTRY_AUTH_TOKEN="your_sentry_token"
 
 DATABASE_URL="file:./dev.db"
 ```
