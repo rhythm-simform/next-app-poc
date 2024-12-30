@@ -57,16 +57,17 @@ export default function Header() {
     try {
       // promise to delay of 5s
       dispatch(setLoading(true));
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      await new Promise((resolve) => setTimeout(resolve, 2000));
       // Send a GET request to the logout route
       const response = await fetch('/api/logout', {
         method: 'GET',
       });
 
       if (response.ok) {
-        router.push('/');
         dispatch(setLoading(false));
         dispatch(setLoggedIn(false));
+        router.refresh();
+        // router.push('/login');
       } else {
         console.error('Logout failed');
       }
